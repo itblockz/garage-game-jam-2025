@@ -8,7 +8,7 @@ public class HexGrid : MonoBehaviour
 
     private Dictionary<Vector2Int, GameObject> hexes = new Dictionary<Vector2Int, GameObject>();
     
-    void Start() 
+    void Awake() 
     {
         CreateGrid(5, 5);  // Create 5x5 hex grid
     }
@@ -36,7 +36,7 @@ public class HexGrid : MonoBehaviour
         return new Vector3(x, y, 0);  // z=0 for flat ground
     }
     
-    List<Vector2Int> GetNeighbors(Vector2Int coord) 
+    public List<Vector2Int> GetNeighbors(Vector2Int coord) 
     {
         Vector2Int[] directions = {
             new Vector2Int(1, 0), new Vector2Int(1, -1), new Vector2Int(0, -1),
@@ -54,4 +54,19 @@ public class HexGrid : MonoBehaviour
         }
         return neighbors;
     }
+
+    public List<Vector2Int> GetHexCoordinates()
+    {
+        return new List<Vector2Int>(hexes.Keys);
+    }
+    
+    public GameObject GetHexAt(Vector2Int coord)
+    {
+        if (hexes.TryGetValue(coord, out GameObject hex))
+        {
+            return hex;
+        }
+        return null; // or handle missing hex case
+    }
+
 }
