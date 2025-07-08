@@ -17,22 +17,22 @@ public class HexGrid : MonoBehaviour
     {
         for (int q = 0; q < width; q++) 
         {
-            for (int s = 0; s < height; s++) 
+            for (int r = 0; r < height; r++) 
             {
-                Vector2Int coord = new Vector2Int(q, s);
-                Vector3 worldPos = AxialToWorldPosition(q, s);
+                Vector2Int coord = new Vector2Int(q, r);
+                Vector3 worldPos = AxialToWorldPosition(q, r);
                 
                 GameObject hex = Instantiate(prefabPool.GetRandomPrefab(), worldPos, Quaternion.identity);
-                hex.name = $"Hex_{q}_{s}";
+                hex.name = $"Hex_{q}_{r}";
                 hexes[coord] = hex;
             }
         }
     }
     
-    Vector3 AxialToWorldPosition(int q, int s) 
+    Vector3 AxialToWorldPosition(int q, int r) 
     {
-        float x = hexSize * (3f/2f * q);
-        float y = hexSize * (Mathf.Sqrt(3f)/2f * q + Mathf.Sqrt(3f) * s);
+        float x = hexSize * (Mathf.Sqrt(3f)/2f * q + Mathf.Sqrt(3f) * r);
+        float y = hexSize * (3f/2f * q);
         return new Vector3(x, y, 0);  // z=0 for flat ground
     }
     
