@@ -288,8 +288,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ee773ddda1ebd48997f76cdefd3329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabPool: {fileID: 2025699845}
+  hexPrefabPool: {fileID: 2025699845}
   hexSize: 0.5
+  wallPrefab: {fileID: 5127534766151677411, guid: ecdb9da9d9e97af46905f17de82142ea, type: 3}
 --- !u!4 &887044318
 Transform:
   m_ObjectHideFlags: 0
