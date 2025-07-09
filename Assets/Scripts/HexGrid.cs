@@ -58,6 +58,12 @@ public class HexGrid : MonoBehaviour
         return neighbors;
     }
 
+    public bool IsNeighbor(Vector2Int coord1, Vector2Int coord2)
+    {
+        List<Vector2Int> neighbors = GetNeighbors(coord1);
+        return neighbors.Contains(coord2);
+    }
+
     public List<Vector2Int> GetHexCoordinates()
     {
         return new List<Vector2Int>(hexes.Keys);
@@ -70,6 +76,13 @@ public class HexGrid : MonoBehaviour
             return hex;
         }
         return null; // or handle missing hex case
+    }
+
+    public void SetHexAt(Vector2Int coord, GameObject hex)
+    {
+        hexes[coord] = hex;
+        hex.name = $"Hex_{coord.x}_{coord.y}";
+        hex.transform.position = AxialToWorldPosition(coord.x, coord.y);
     }
 
     public void AddWall(Vector2Int start, Vector2Int end, GameObject wallPrefab)
