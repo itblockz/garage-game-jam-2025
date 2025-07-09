@@ -6,7 +6,6 @@ public class HexGrid : MonoBehaviour
 {
     [SerializeField] private PrefabPool hexPrefabPool;
     [SerializeField] private float hexSize = 1f;
-    [SerializeField] private GameObject wallPrefab;
 
     private Dictionary<Vector2Int, GameObject> hexes = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<(Vector2Int, Vector2Int), GameObject> walls = new Dictionary<(Vector2Int, Vector2Int), GameObject>();
@@ -85,21 +84,22 @@ public class HexGrid : MonoBehaviour
         hex.transform.position = AxialToWorldPosition(coord.x, coord.y);
     }
 
-    public void AddWall(Vector2Int start, Vector2Int end, GameObject wallPrefab)
+    public bool AddWall(Vector2Int start, Vector2Int end, GameObject wallPrefab)
     {
-        if (hexes.ContainsKey(start) && hexes.ContainsKey(end))
+        if (IsNeighbor(start, end))
         {
-            var key = (start, end);
-            if (!walls.ContainsKey(key))
+            var wallKey = (start, end);
+            if (!walls.ContainsKey(wallKey))
             {
-                Vector3 startPos = AxialToWorldPosition(start.x, start.y);
-                Vector3 endPos = AxialToWorldPosition(end.x, end.y);
-                GameObject wall = Instantiate(wallPrefab, (startPos + endPos) / 2, Quaternion.identity);
-                Vector3 direction = endPos - startPos;
+                GameObject wall = Instantiate(wallPrefab, Vector3.Lerp(AxialToWorldPosition(start.x, start.y), AxialToWorldPosition(end.x, end.y), 0.5f), Quaternion.identity);
+                Vector3 direction = AxialToWorldPosition(end.x, end.y) - AxialToWorldPosition(start.x, start.y);
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 wall.transform.rotation = Quaternion.Euler(0, 0, angle);
-                walls[key] = wall;
+                walls[wallKey] = wall;
+                wall.name = $"Wall_{start.x}_{start.y}_to_{end.x}_{end.y}";
+                return true;
             }
         }
+        return false; // Wall already exists or not neighbors
     }
 }
