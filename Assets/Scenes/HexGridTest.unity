@@ -690,7 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexPrefabPool: {fileID: 2025699845}
-  hexSize: 0.5
+  hexSize: 0.6
 --- !u!4 &887044318
 Transform:
   m_ObjectHideFlags: 0
