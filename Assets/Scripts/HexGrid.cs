@@ -11,26 +11,27 @@ public class HexGrid : MonoBehaviour
     private Dictionary<GameObject, Vector2Int> hexCoordinates = new Dictionary<GameObject, Vector2Int>();
     private Dictionary<(Vector2Int, Vector2Int), GameObject> walls = new Dictionary<(Vector2Int, Vector2Int), GameObject>();
 
-    void Awake()
+    public void AddHex(Vector2Int coord)
     {
-        CreateGrid(5, 5);  // Create 5x5 hex grid
+        if (!hexes.ContainsKey(coord))
+        {
+            Vector3 worldPos = AxialToWorldPosition(coord.x, coord.y);
+            GameObject hex = Instantiate(hexPrefabPool.GetRandomPrefab(), worldPos, Quaternion.identity);
+            hex.name = $"Hex_{coord.x}_{coord.y}";
+            hexes[coord] = hex;
+            hexCoordinates[hex] = coord;
+        }
     }
 
-    void CreateGrid(int width, int height)
+    public void ClearGrid()
     {
-        for (int q = 0; q < width; q++)
+        foreach (var hex in hexes.Values)
         {
-            for (int r = 0; r < height; r++)
-            {
-                Vector2Int coord = new Vector2Int(q, r);
-                Vector3 worldPos = AxialToWorldPosition(q, r);
-
-                GameObject hex = Instantiate(hexPrefabPool.GetRandomPrefab(), worldPos, Quaternion.identity);
-                hex.name = $"Hex_{q}_{r}";
-                hexes[coord] = hex;
-                hexCoordinates[hex] = coord;
-            }
+            Destroy(hex);
         }
+        hexes.Clear();
+        hexCoordinates.Clear();
+        walls.Clear();
     }
 
     Vector3 AxialToWorldPosition(int q, int r)
