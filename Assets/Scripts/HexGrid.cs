@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour
@@ -28,6 +27,10 @@ public class HexGrid : MonoBehaviour
         foreach (var hex in hexes.Values)
         {
             Destroy(hex);
+        }
+        foreach (var wall in walls.Values)
+        {
+            Destroy(wall);
         }
         hexes.Clear();
         hexCoordinates.Clear();

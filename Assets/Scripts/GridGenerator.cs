@@ -6,11 +6,24 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] private HexGrid hexGrid;
     [SerializeField] private int gridWidth = 5;
     [SerializeField] private int gridHeight = 5;
-    [SerializeField] private int hexNumber = 5;
+    [SerializeField] private int minHexes = 5;
+    [SerializeField] private int maxHexes = 12;
+    private int hexNumber;
 
     void Awake()
     {
+        ResetHexes();
         GenerateGrid();
+    }
+
+    public void IncreaseHexes()
+    {
+        hexNumber = Mathf.Min(maxHexes, hexNumber + 1);
+    }
+
+    public void ResetHexes()
+    {
+        hexNumber = minHexes;
     }
 
     public void GenerateGrid()
@@ -23,9 +36,9 @@ public class GridGenerator : MonoBehaviour
         List<Vector2Int> hexes = new List<Vector2Int>();
         List<Vector2Int> hexesToAdd = new List<Vector2Int>
         {
-            new Vector2Int(hexNumber / 2, hexNumber / 2) // Start with the center hex
+            new Vector2Int(gridWidth / 2, gridHeight / 2) // Start with the center hex
         };
-        while (hexes.Count < hexNumber)
+        while (hexes.Count < hexNumber && hexesToAdd.Count > 0)
         {
             int index = Random.Range(0, hexesToAdd.Count);
             Vector2Int currentHex = hexesToAdd[index];

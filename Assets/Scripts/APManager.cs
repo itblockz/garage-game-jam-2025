@@ -2,7 +2,18 @@ using UnityEngine;
 
 public class APManager : MonoBehaviour
 {
-    [SerializeField] private int ap = 15;
+    [SerializeField] private int initialAP = 21;
+    private int ap;
+
+    private void Start()
+    {
+        ResetAP(); // Initialize AP at the start
+    }
+
+    public void ResetAP()
+    {
+        AP = initialAP; // Reset AP to the initial value
+    }
 
     public int AP
     {
@@ -21,7 +32,7 @@ public class APManager : MonoBehaviour
     {
         return AP >= cost;
     }
-    
+
     public void UseAP(int cost)
     {
         if (HasEnoughAP(cost))
@@ -32,5 +43,10 @@ public class APManager : MonoBehaviour
         {
             Debug.LogWarning("Not enough AP to perform this action.");
         }
+    }
+    
+    public int GetUsedAP()
+    {
+        return initialAP - AP; // Calculate used AP
     }
 }
