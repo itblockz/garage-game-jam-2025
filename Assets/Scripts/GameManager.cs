@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private APManager apManager;
     [SerializeField] private GridGenerator gridGenerator;
+    [SerializeField] private APManager apManager;
+    [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private HPManager hpManager;
+    [SerializeField] private GameObject gameOverPanel;
     private int stages = 0;
     private int usedAP = 0;
 
@@ -15,6 +19,11 @@ public class GameManager : MonoBehaviour
             gridGenerator.IncreaseHexes();
         }
         Debug.Log("Stage " + stages + " completed.");
+        hpManager.DecreaseHP(-scoreManager.Score);
+        if (hpManager.HP <= 0)
+        {
+            GameOver();
+        }
     }
 
     public void AddUsedAP()
@@ -27,7 +36,15 @@ public class GameManager : MonoBehaviour
     {
         stages = 0;
         usedAP = 0;
-        Debug.Log("Game reset. Stages and AP usage cleared.");
+        hpManager.ResetHP();
+        gridGenerator.ResetHexes();
+        gridGenerator.GenerateGrid();
+        Debug.Log("Game reset. Stages: " + stages + ", Used AP: " + usedAP);
+    }
+
+    void GameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 
     public int Stages
