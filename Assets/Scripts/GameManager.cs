@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
 
     public void NextStage()
     {
+        hpManager.DecreaseHP(-scoreManager.Score);
+        if (hpManager.HP <= 0)
+        {
+            GameOver();
+            return;
+        }
         stages++;
         if (stages % 5 == 0)
         {
@@ -24,11 +30,6 @@ public class GameManager : MonoBehaviour
         apManager.ResetAP();
         AddUsedAP();
         Debug.Log("Stage " + stages + " completed.");
-        hpManager.DecreaseHP(-scoreManager.Score);
-        if (hpManager.HP <= 0)
-        {
-            GameOver();
-        }
     }
 
     public void ResetGame()
