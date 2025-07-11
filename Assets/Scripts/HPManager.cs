@@ -26,4 +26,9 @@ public class HPManager : MonoBehaviour
     {
         get { return hp; }
     }
+
+    public int InitialHP
+    {
+        get { return intialHP; }
+    }
 }
