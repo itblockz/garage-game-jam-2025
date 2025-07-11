@@ -7,17 +7,20 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI apText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI stageText;
+    public TextMeshProUGUI HPText;
 
     [Header("Managers")]
     public APManager apManager;
     public ScoreManager scoreManager;
     public GameManager gameManager;
+    public HPManager hpManager;
 
     void Start()
     {
         UpdateAP();
         UpdateScore();
         UpdateStage();
+        UpdateHP();
     }
 
     void Update()
@@ -25,6 +28,7 @@ public class HUDManager : MonoBehaviour
         UpdateAP();
         UpdateScore();
         UpdateStage();
+        UpdateHP();
     }
 
     void UpdateAP()
@@ -40,5 +44,10 @@ public class HUDManager : MonoBehaviour
     public void UpdateStage()
     {
         stageText.text = "Stage " + (gameManager.Stages + 1).ToString();
+    }
+
+    public void UpdateHP()
+    {
+        HPText.text = "HP: " + hpManager.HP.ToString();
     }
 }
