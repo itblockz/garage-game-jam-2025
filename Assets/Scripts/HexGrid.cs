@@ -8,6 +8,7 @@ public class HexGrid : MonoBehaviour
     [SerializeField] private float hexSize = 1f;
 
     private Dictionary<Vector2Int, GameObject> hexes = new Dictionary<Vector2Int, GameObject>();
+    private Dictionary<GameObject, Vector2Int> hexCoordinates = new Dictionary<GameObject, Vector2Int>();
     private Dictionary<(Vector2Int, Vector2Int), GameObject> walls = new Dictionary<(Vector2Int, Vector2Int), GameObject>();
 
     void Awake()
@@ -27,6 +28,7 @@ public class HexGrid : MonoBehaviour
                 GameObject hex = Instantiate(hexPrefabPool.GetRandomPrefab(), worldPos, Quaternion.identity);
                 hex.name = $"Hex_{q}_{r}";
                 hexes[coord] = hex;
+                hexCoordinates[hex] = coord;
             }
         }
     }
@@ -80,10 +82,19 @@ public class HexGrid : MonoBehaviour
     public void SetHexAt(Vector2Int coord, GameObject hex)
     {
         hexes[coord] = hex;
+        hexCoordinates[hex] = coord;
         hex.name = $"Hex_{coord.x}_{coord.y}";
         hex.transform.position = AxialToWorldPosition(coord.x, coord.y);
     }
 
+    public Vector2Int GetCoordinate(GameObject hex)
+    {
+        if (hexCoordinates.TryGetValue(hex, out Vector2Int coord))
+        {
+            return coord;
+        }
+        return Vector2Int.zero; // or handle missing hex case
+    }
     public bool AddWall(Vector2Int start, Vector2Int end, GameObject wallPrefab)
     {
         if (IsNeighbor(start, end))

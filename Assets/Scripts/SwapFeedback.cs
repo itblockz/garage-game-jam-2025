@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move2_sprit : MonoBehaviour
+public class SwapFeedback : MonoBehaviour
 {
-    public Transform spriteA; // ตำแหน่งของ Sprite A
-    public Transform spriteB; // ตำแหน่งของ Sprite B
     public float moveSpeed = 2.0f; // ความเร็วในการเคลื่อนที่
+    private Transform spriteB; // ตำแหน่งของ Sprite B
+    private Transform spriteA; // ตำแหน่งของ Sprite A
 
     private bool isSwapping = false;
 
-    void Update()
+    public void SwapSprites(Transform spriteA, Transform spriteB)
     {
-        // กดปุ่ม Space เพื่อเริ่มการสลับ
-        if (Input.GetKeyDown(KeyCode.F) && !isSwapping)
-        {
-            StartCoroutine(SwapSprites());
-        }
+        this.spriteA = spriteA;
+        this.spriteB = spriteB;
+
+        // เริ่ม Coroutine สำหรับการสลับ Sprite
+        StartCoroutine(SwapSprites());
     }
 
     IEnumerator SwapSprites()
     {
+        if (isSwapping)
+        {
+            yield break; // ถ้าอยู่ในระหว่างการสลับแล้ว ให้หยุดการทำงาน
+        }
+
         isSwapping = true;
 
         Vector3 posA = spriteA.position;
