@@ -25,7 +25,7 @@ public class SwapAction : Action
         }
     }
 
-    protected void OnSelectionComplete(List<GameObject> selectedObjects)
+    protected virtual void OnSelectionComplete(List<GameObject> selectedObjects)
     {
         String selectedObjectsString = string.Join(", ", selectedObjects.ConvertAll(obj => obj.name));
         Debug.Log($"Selected objects: {selectedObjectsString}");
