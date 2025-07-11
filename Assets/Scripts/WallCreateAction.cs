@@ -27,13 +27,15 @@ public class WallCreateAction : Action
 
     protected virtual void OnSelectionComplete(List<GameObject> selectedObjects)
     {
-        String selectedObjectsString = string.Join(", ", selectedObjects.ConvertAll(obj => obj.name));
+        string selectedObjectsString = string.Join(", ", selectedObjects.ConvertAll(obj => obj.name));
         Debug.Log($"Selected objects: {selectedObjectsString}");
         Vector2Int coord1 = hexGrid.GetCoordinate(selectedObjects[0]);
         Vector2Int coord2 = hexGrid.GetCoordinate(selectedObjects[1]);
         if (hexGrid.IsNeighbor(coord1, coord2))
         {
+            UseAP();
             AddWall(coord1, coord2);
+            CalculateScore();
         }
         else
         {

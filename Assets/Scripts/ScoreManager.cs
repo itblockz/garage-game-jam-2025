@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour
         foreach (Vector2Int coord in hexes)
         {
             GameObject hex = hexGrid.GetHexAt(coord);
-            List<Vector2Int> neighbors = hexGrid.GetNeighbors(coord);
+            List<Vector2Int> neighbors = hexGrid.GetNeighborsWithoutWalls(coord);
             if (hex != null)
             {
                 HexData hexData = hex.GetComponent<HexData>();

@@ -59,6 +59,22 @@ public class HexGrid : MonoBehaviour
         return neighbors;
     }
 
+    // get neighbors concern no walls
+    public List<Vector2Int> GetNeighborsWithoutWalls(Vector2Int coord)
+    {
+        List<Vector2Int> neighbors = GetNeighbors(coord);
+        List<Vector2Int> validNeighbors = new List<Vector2Int>();
+
+        foreach (var neighbor in neighbors)
+        {
+            if (!walls.ContainsKey((coord, neighbor)) && !walls.ContainsKey((neighbor, coord)))
+            {
+                validNeighbors.Add(neighbor);
+            }
+        }
+        return validNeighbors;
+    }
+
     public bool IsNeighbor(Vector2Int coord1, Vector2Int coord2)
     {
         List<Vector2Int> neighbors = GetNeighbors(coord1);

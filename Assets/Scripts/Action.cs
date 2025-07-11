@@ -11,7 +11,6 @@ public abstract class Action : MonoBehaviour
     {
         if (apManager.HasEnoughAP(apCost))
         {
-            apManager.UseAP(apCost);
             ExecuteAction();
         }
         else
@@ -21,6 +20,18 @@ public abstract class Action : MonoBehaviour
     }
 
     protected abstract void ExecuteAction();
+
+    protected void UseAP()
+    {
+        apManager.UseAP(apCost);
+        Debug.Log($"Action performed. AP cost: {apCost}. Remaining AP: {apManager.AP}");
+    }
+
+    protected void CalculateScore()
+    {
+        scoreManager.CalculateScore();
+        Debug.Log($"Score after action: {scoreManager.Score}");
+    }
 
     internal void Invoke()
     {

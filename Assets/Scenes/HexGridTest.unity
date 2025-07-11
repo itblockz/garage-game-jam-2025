@@ -756,7 +756,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 176642869}
+      - m_Target: {fileID: 44849822}
         m_TargetAssemblyTypeName: Action, Assembly-CSharp
         m_MethodName: PerformAction
         m_Mode: 1
