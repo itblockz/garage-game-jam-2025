@@ -5,6 +5,7 @@ public abstract class Action : MonoBehaviour
 {
     [SerializeField] private APManager apManager;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private MoodManager moodManager;
     [SerializeField] private int apCost = 0;
 
     public void PerformAction()
@@ -21,16 +22,24 @@ public abstract class Action : MonoBehaviour
 
     protected abstract void ExecuteAction();
 
-    protected void UseAP()
+    protected bool UseAP()
     {
-        apManager.UseAP(apCost);
-        Debug.Log($"Action performed. AP cost: {apCost}. Remaining AP: {apManager.AP}");
+        if (apManager.HasEnoughAP(apCost))
+        {
+            apManager.UseAP(apCost);
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("Not enough AP to use this action.");
+            return false;
+        }
     }
 
-    protected void CalculateScore()
+    protected void AfterExecuteAction()
     {
         scoreManager.CalculateScore();
-        Debug.Log($"Score after action: {scoreManager.Score}");
+        moodManager.UpdateMood();
     }
 
     internal void Invoke()

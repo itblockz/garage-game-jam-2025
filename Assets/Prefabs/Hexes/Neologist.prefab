@@ -186,7 +186,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexType: 2
   enemiesHexTypes: 000000000100000003000000
+  spriteRenderer: {fileID: 5820219335943596816}
   moodState: 0
+  moodSpriteEntries:
+  - moodState: 0
+    sprite: {fileID: 21300000, guid: e34405d250d03254bbdd46817d8f7f53, type: 3}
+  - moodState: 2
+    sprite: {fileID: 21300000, guid: 8c054b2f7c93ded41a55e9cb01443fb5, type: 3}
+  - moodState: 1
+    sprite: {fileID: 21300000, guid: bac3a7af2a1032843b2d82a358519925, type: 3}
 --- !u!60 &4756451207513801657
 PolygonCollider2D:
   m_ObjectHideFlags: 0

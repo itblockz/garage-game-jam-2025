@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +9,11 @@ public class NeighborSwapAction : SwapAction
         Debug.Log($"Selected objects: {selectedObjectsString}");
         Vector2Int coord1 = hexGrid.GetCoordinate(selectedObjects[0]);
         Vector2Int coord2 = hexGrid.GetCoordinate(selectedObjects[1]);
-        if (hexGrid.IsNeighbor(coord1, coord2))
+        if (hexGrid.IsNeighbor(coord1, coord2) && UseAP())
         {
-            UseAP();
             swapFeedback.SwapSprites(selectedObjects[0].transform, selectedObjects[1].transform);
             SwapHexes(coord1, coord2);
-            CalculateScore();
+            AfterExecuteAction();
         }
         else
         {

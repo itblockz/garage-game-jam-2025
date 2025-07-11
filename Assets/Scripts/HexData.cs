@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum HexType
@@ -17,11 +18,47 @@ public enum MoodState
     Angry
 }
 
+[System.Serializable]
+public class MoodSpriteEntry
+{
+    public MoodState moodState;
+    public Sprite sprite;
+}
+
 public class HexData : MonoBehaviour
 {
     [SerializeField] private HexType hexType;
     [SerializeField] private HexType[] enemiesHexTypes;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private MoodState moodState = MoodState.Neutral;
+    [SerializeField] private List<MoodSpriteEntry> moodSpriteEntries;
+    private Dictionary<MoodState, Sprite> moodSpriteDictionary;
+
+    void Awake()
+    {
+        InitializeDictionary();
+    }
+    
+    void InitializeDictionary()
+    {
+        moodSpriteDictionary = new Dictionary<MoodState, Sprite>();
+        
+        foreach (var entry in moodSpriteEntries)
+        {
+            if (entry.sprite != null)
+            {
+                moodSpriteDictionary[entry.moodState] = entry.sprite;
+            }
+        }
+    }
+
+    void UpdateMoodSprite()
+    {
+        if (moodSpriteDictionary.TryGetValue(moodState, out Sprite sprite))
+        {
+            spriteRenderer.sprite = sprite;
+        }
+    }
 
     public HexType HexType
     {
@@ -38,6 +75,10 @@ public class HexData : MonoBehaviour
     public MoodState MoodState
     {
         get => moodState;
-        set => moodState = value;
+        set
+        {
+            moodState = value;
+            UpdateMoodSprite();
+        }
     }
 }

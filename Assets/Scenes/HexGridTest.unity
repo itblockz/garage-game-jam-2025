@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apManager: {fileID: 597494200}
   scoreManager: {fileID: 325008620}
+  moodManager: {fileID: 1720380808}
   apCost: 1
   hexGrid: {fileID: 887044317}
   selectionManager: {fileID: 1377851852}
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apManager: {fileID: 597494200}
   scoreManager: {fileID: 325008620}
+  moodManager: {fileID: 1720380808}
   apCost: 5
   hexGrid: {fileID: 887044317}
   selectionManager: {fileID: 1377851852}
@@ -956,6 +958,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1720380807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720380809}
+  - component: {fileID: 1720380808}
+  m_Layer: 0
+  m_Name: MoodManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1720380808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720380807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023e7f8aadd428d4b815bc1084dec638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexGrid: {fileID: 887044317}
+--- !u!4 &1720380809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720380807}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1763149557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apManager: {fileID: 597494200}
   scoreManager: {fileID: 325008620}
+  moodManager: {fileID: 1720380808}
   apCost: 3
   hexGrid: {fileID: 887044317}
   selectionManager: {fileID: 1377851852}
@@ -1142,3 +1190,4 @@ SceneRoots:
   - {fileID: 1763662123}
   - {fileID: 44849823}
   - {fileID: 176642870}
+  - {fileID: 1720380809}
