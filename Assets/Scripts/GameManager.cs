@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
             GameOver();
             return;
         }
+        AddUsedAP();
         stages++;
         if (stages % 5 == 0)
         {
@@ -28,7 +29,6 @@ public class GameManager : MonoBehaviour
         scoreManager.CalculateScore();
         moodManager.UpdateMood();
         apManager.ResetAP();
-        AddUsedAP();
         Debug.Log("Stage " + stages + " completed.");
     }
 
@@ -46,6 +46,36 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game reset. Stages: " + stages + ", Used AP: " + usedAP);
     }
 
+    public void SetHighestStage()
+    {
+        int highStage = GetHighestStage();
+        int bestAP = GetBestAP();
+        if (stages > highStage || (stages == highStage && usedAP < bestAP))
+        {
+            PlayerPrefs.SetInt("HighestStage", stages);
+            PlayerPrefs.SetInt("BestAP", usedAP);
+            PlayerPrefs.Save();
+            Debug.Log("New high score set: Stages - " + stages + ", Used AP - " + usedAP);
+        }
+    }
+
+    public int GetHighestStage()
+    {
+        return PlayerPrefs.GetInt("HighestStage", 0);
+    }
+    
+    public int GetBestAP()
+    {
+        return PlayerPrefs.GetInt("BestAP", 0);
+    }
+    
+    public bool IsNewHighScore()
+    {
+        int highStage = GetHighestStage();
+        int bestAP = GetBestAP();
+        return stages > highStage || (stages == highStage && usedAP < bestAP);
+    }
+
     void AddUsedAP()
     {
         usedAP += apManager.GetUsedAP();
@@ -54,6 +84,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        SetHighestStage();
         gameOverPanel.SetActive(true);
     }
 
