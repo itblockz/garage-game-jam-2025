@@ -11,10 +11,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ActionController actionController;
     private int stages = 0;
     private int usedAP = 0;
+    public AudioSource audioSource;
+    public AudioClip winClip;
+    public AudioClip loseClip;
 
     public void NextStage()
     {
         hpManager.DecreaseHP(-scoreManager.Score);
+        if (scoreManager.Score < 0)
+        {
+            audioSource.PlayOneShot(loseClip);
+        }
+        if (scoreManager.Score == 0) {
+            audioSource.PlayOneShot(winClip);
+        }
         if (hpManager.HP <= 0)
         {
             GameOver();
