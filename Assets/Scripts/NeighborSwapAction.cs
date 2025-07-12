@@ -21,4 +21,10 @@ public class NeighborSwapAction : SwapAction
             return; // Exit if they are not neighbors
         }
     }
+
+    public override void CancelAction()
+    {
+        selectionManager.StopSelection();
+        Debug.Log("Swap action cancelled.");
+    }
 }

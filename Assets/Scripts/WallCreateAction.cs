@@ -41,4 +41,10 @@ public class WallCreateAction : Action
             Debug.LogWarning($"Selected objects {selectedObjects[0].name} and {selectedObjects[1].name} are not neighbors.");
         }
     }
+
+    public override void CancelAction()
+    {
+        selectionManager.StopSelection();
+        Debug.Log("Swap action cancelled.");
+    }
 }

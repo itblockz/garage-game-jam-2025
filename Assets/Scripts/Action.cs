@@ -21,6 +21,7 @@ public abstract class Action : MonoBehaviour
     }
 
     protected abstract void ExecuteAction();
+    public abstract void CancelAction();
 
     protected bool UseAP()
     {

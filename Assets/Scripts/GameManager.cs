@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HPManager hpManager;
     [SerializeField] private MoodManager moodManager;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private ActionController actionController;
     private int stages = 0;
     private int usedAP = 0;
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         scoreManager.CalculateScore();
         moodManager.UpdateMood();
         apManager.ResetAP();
+        actionController.CancelAction();
         Debug.Log("Stage " + stages + " completed.");
     }
 

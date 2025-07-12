@@ -38,4 +38,10 @@ public class SwapAction : Action
             AfterExecuteAction();
         }
     }
+
+    public override void CancelAction()
+    {
+        selectionManager.StopSelection();
+        Debug.Log("Swap action cancelled.");
+    }
 }
